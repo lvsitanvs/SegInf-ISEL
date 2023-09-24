@@ -72,8 +72,10 @@
 ## 2. Criptografia Simétrica
 > Bibliografia <hr> 
 > - [02. Esquemas Simétricos](https://2324moodle.isel.pt/mod/resource/view.php?id=143552)
-> - Gollmann, Dieter: Secções 14.5.1-2 / 14.3.3
-> - Welianng, Du: Secções 21.3-5 / 21.4.7, 21.7, 22.5
+> - Gollmann, Dieter, Computer Security, 3ª edição, 
+Wiley, 2011: Secções 14.5.1-2 / 14.3.3
+> - Welianng, Du, Computer Security: A Hands-on 
+Approach, 2ª edição, 2019: Secções 21.3-5 / 21.4.7, 21.7, 22.5
 > - Newsletter: [Schneier](https://www.schneier.com/crypto-gram/)
 
 - **Esquemas Simétricos**
