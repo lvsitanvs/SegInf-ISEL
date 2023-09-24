@@ -18,6 +18,9 @@
 - [Meta-disciplina](https://2324moodle.isel.pt/course/view.php?id=7503)
 ### Repositório GitHub
 - To Be Anounced
+### Bibliografia
+ - [Golmmann, Dieter, Computer Security. 3rd edition, Willey, 2011](https://annas-archive.org/md5/690cde92880ff81a41d3e00b8c3bacbb)
+ - [Welianng, Du, Computer Security: A Hands-on Approach, 2nd edition, 2019](https://annas-archive.org/md5/ce3cda53cae54ef32e606075554d4683)
 -----------------------------
 ## Programa
 ### Parte 1 - Esquemas e protocolos ciptográficos e métodos de gestão de chaves
