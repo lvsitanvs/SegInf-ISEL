@@ -35,7 +35,65 @@ Grupo 03
 
     Concluindo, a confiança em um certificado depende das configurações e políticas específicas do sistema.
 ## Parte 2
-5. 
+5. Impacto da utilização dos modos de operação ECB e CBC quando a mensagem em claro tem repetição de padrões
+
+    5.2. Comandos OpenSSL
+    - **Versão do OpenSSL**:
+    ```terminal
+    $ openssl version
+    $ OpenSSL 3.0.8 7 Feb 2023 (Library: OpenSSL 3.0.8 7 Feb 2023)
+    ```
+    - **AES no modo ECB**:
+    ```terminal
+    $ openssl enc -aes-128-ecb -in body -out body_aes_ecb -K 00112233445566778889aabbccddeeff
+    $
+    ```
+    - **AES no modo CBC**:
+    ```terminal
+    $ openssl enc -aes-128-cbc -in body -out body_aes_cbc -K 00112233445566778889aabbccddeeff -iv 0102030405060708090a0b0c0d0e0f10
+    $
+    ```
+    tanto a chave como o iv têm de ter 128-bit, 32 caracteres
+    - **DES no modo ECB**:
+    ```terminal
+    $ openssl enc -des-ecb -in body -out body_des_ecb -K 0011223344556677 -provider legacy -provider default
+    ```
+    DES já não é suportado por esta versão de OpenSSL, para executar este comando, tivemos de dar os argumentos `-provider legacy -provider default`
+    - **DES no modo CBC**:
+    ```terminal
+    $ openssl enc -des-cbc -in body -out body_des_cbc -K 0011223344556677 -iv 0102030405060708 -provider legacy -provider default
+    ```
+    5.3. Imagens cifradas e análise de resultados
+    - **Original**
+    ![original](./Exercice_5/trab1.bmp)
+    - **AES no modo ECB**
+    ![aes_ecb](./Exercice_5/aes_ecb.bmp)
+    - **AES no modo CBC**
+    ![aes_cbc](./Exercice_5/aes_cbc.bmp)
+    - **DES no modo ECB**
+    ![des_ecb](./Exercice_5/des_ecb.bmp)
+    - **DES no modo CBC**
+    ![des_cbc](./Exercice_5/des_cbc.bmp)
+    - **Análise dos resultados**
+    
+    | Nome | Tamanho (Bytes)|Tamanho (Bits)| Total blocos |
+    |------|----------------|--------------|--------------|
+    |trab1.bmp|892850|7142800|
+    |header|54|432|
+    |body|892797|7142376|55799,8125 (128bits) 111599,625 (64bits)
+    |body_aes_cbc|892800|7142400| 55800 (128bits)|
+    |body_aes_ecb|892800|7142400| 55800 (128bits)|
+    |body_des_cbc|892800|7142400| 111600 (64bits)|
+    |body_des_ecb|892800|7142400| 111600 (64bits)|
+    |aes_cbc.bmp|892854|7142832|
+    |aes_ecb.bmp|892854|7142832|
+    |des_cbc.bmp|892854|7142832|
+    |des_ecb.bmp|892854|7142832|
+    Uma vez que os modos ECB e CBC funcionam por blocos, no caso do DES, 64 bits e no caso do AES 128 bits, o programa acrescentou um *padding* de 3 bytes, tornando assim os ficheiros um pouco maiores que o original.
+    ![ECB_vs_CBC](./Exercice_5/ECB-vs-CBC.png)
+    Como é possível ver na imagem, quando é usado o modo ECB, continua a ser possível identificar a informação, pois cada bloco é cifrado independente dos restantes blocos, o que faz com que informação igual na imagem original, continue igual depois de cifrada. Já no modo CBC isto não acontece porque cada bloco é *XORado* com informação do bloco anterior, fazendo com que deste modo, cada bloco dependa de todos os blocos anteriores.
+
+
 
 6. Blockchain
 
