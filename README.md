@@ -17,7 +17,7 @@
 - [Turma](https://2324moodle.isel.pt/course/view.php?id=7509)
 - [Meta-disciplina](https://2324moodle.isel.pt/course/view.php?id=7503)
 ### Repositório GitHub
-- To Be Anounced
+- [SegInf-public](https://github.com/isel-deetc-computersecurity/seginf-public)
 ### Bibliografia
  - [Golmmann, Dieter, Computer Security. 3rd edition, Willey, 2011](https://annas-archive.org/md5/690cde92880ff81a41d3e00b8c3bacbb)
  - [Welianng, Du, Computer Security: A Hands-on Approach, 2nd edition, 2019](https://annas-archive.org/md5/ce3cda53cae54ef32e606075554d4683)
@@ -110,4 +110,26 @@ Approach, 2ª edição, 2019: Secções 21.3-5 / 21.4.7, 21.7, 22.5
 - **Modos de Cifra Autenticada**
     - *Galois Counter Mode (GCM)*
 
+## 3. Funções Hash e Esquemas Assimétricos
+> Bibliografia <hr> 
+> - [03. Funções de Hash](https://2324moodle.isel.pt/mod/resource/view.php?id=145441)
+> - [04. Esquemas Assimétricos](https://2324moodle.isel.pt/mod/resource/view.php?id=145975)
+> - Gollmann, Dieter, Computer Security, 3ª edição, 
+Wiley, 2011: Secções 14.3.3-4
+> - Welianng, Du, Computer Security: A Hands-on 
+Approach, 2ª edição, 2019: Secções 21.1-5, 22.7
+
+- **Funções de Hash**
+    - Propriedades, Resistência pré-imagem, segunda-imagem e colisão
+    - Famílias SHA (Secure Hash Algorithms)
+        - [wikipedia](https://en.wikipedia.org/wiki/Secure_Hash_Algorithms)
+        - [youtube](https://www.youtube.com/watch?v=b4b8ktEV4Bg)
+    - Aplicações e Exemplos
+        - [paper - github](https://github.com/DP-3T/documents/blob/master/DP3T%20White%20Paper.pdf)
+    - Esquemas HMAC
+        - [wikipedia](https://en.wikipedia.org/wiki/HMAC)
+        - [youtube](https://www.youtube.com/watch?v=wlSG3pEiQdc)
+- **Introdução À Cifra Assimétrica**
+- **RSA**
+- **Esquema Híbrido**
 
