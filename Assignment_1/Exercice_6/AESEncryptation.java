@@ -1,16 +1,20 @@
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+package Exercice7;
 
+import java.security.Provider;
+import java.security.Security;
 import javax.crypto.*;
 import javax.crypto.spec.GCMParameterSpec;
 import java.security.*;
 import java.util.Base64;
 
-public class AESEncryption {
+public class AESEncryptation {
     private static final String AES_ALGORITHM = "AES/GCM/NoPadding";
     private static final int GCM_TAG_LENGTH = 128;
 
     public static String encrypt(String plaintext, SecretKey secretKey) throws Exception {
-        Security.addProvider(new BouncyCastleProvider());
+        // Create a new instance of the Security.Provider class, passing in the name of the OpenJDK JCE provider.
+        Provider provider = Security.getProvider("SUN");
+        Security.addProvider(provider);
 
         Cipher cipher = Cipher.getInstance(AES_ALGORITHM);
         byte[] iv = generateIV();
@@ -27,7 +31,8 @@ public class AESEncryption {
     }
 
     public static String decrypt(String encryptedText, SecretKey secretKey) throws Exception {
-        Security.addProvider(new BouncyCastleProvider());
+        Provider provider = Security.getProvider("SUN");
+        Security.addProvider(provider);
 
         byte[] encryptedBytes = Base64.getDecoder().decode(encryptedText);
         byte[] iv = new byte[GCM_TAG_LENGTH / 8];

@@ -6,13 +6,13 @@ import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.List;
 
-class Block {
+class Block1 {
     private int origin;
     private int destiny;
     private double value;
     private String hash;
 
-    public Block(int origin, int destiny, double value, String hash) {
+    public Block1(int origin, int destiny, double value, String hash) {
         this.origin = origin;
         this.destiny = destiny;
         this.value = value;
@@ -35,7 +35,7 @@ class Block {
         }
     }
 
-    public boolean isValid(Block previousBlock) {
+    public boolean isValid(Block1 previousBlock) {
         return hash.equals(calculateHash()) && hash.equals(previousBlock.hash);
     }
 
@@ -45,7 +45,7 @@ class Block {
     }
 }
 
-public class VerifyBlockchain {
+public class VerifyBlockChain {
     public static void main(String[] args) {
         if (args.length != 1) {
             System.out.println("Uso correto: verifychain <filename>");
@@ -53,11 +53,11 @@ public class VerifyBlockchain {
         }
 
         String filename = args[0];
-        List<Block> blockchain = readBlockchainFromFile(filename);
+        List<Block1> blockchain = readBlockchainFromFile(filename);
 
         if (blockchain != null && validateBlockchain(blockchain)) {
             System.out.println("Cadeia de blocos válida:");
-            for (Block block : blockchain) {
+            for (Block1 block : blockchain) {
                 System.out.println(block.toString());
             }
         } else {
@@ -65,8 +65,8 @@ public class VerifyBlockchain {
         }
     }
 
-    private static List<Block> readBlockchainFromFile(String filename) {
-        List<Block> blockchain = new ArrayList<>();
+    private static List<Block1> readBlockchainFromFile(String filename) {
+        List<Block1> blockchain = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -76,7 +76,7 @@ public class VerifyBlockchain {
                     int destiny = Integer.parseInt(parts[1]);
                     double value = Double.parseDouble(parts[2]);
                     String hash = parts[3];
-                    blockchain.add(new Block(origin, destiny, value, hash));
+                    blockchain.add(new Block1(origin, destiny, value, hash));
                 } else {
                     System.out.println("Formato inválido no arquivo.");
                     return null;
@@ -90,10 +90,10 @@ public class VerifyBlockchain {
         return blockchain;
     }
 
-    private static boolean validateBlockchain(List<Block> blockchain) {
+    private static boolean validateBlockchain(List<Block1> blockchain) {
         for (int i = 1; i < blockchain.size(); i++) {
-            Block currentBlock = blockchain.get(i);
-            Block previousBlock = blockchain.get(i - 1);
+            Block1 currentBlock = blockchain.get(i);
+            Block1 previousBlock = blockchain.get(i - 1);
 
             if (!currentBlock.isValid(previousBlock)) {
                 return false;

@@ -1,5 +1,11 @@
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+//import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
+import Exercice7.AESEncryptation;
+
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.SecretKey;
+import java.io.FileInputStream;
 import java.security.*;
 import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
@@ -8,7 +14,8 @@ import java.util.Base64;
 
 public class JWEProcessor {
     public static String encryptAndWrap(String plaintext, String recipientCertificateFile) throws Exception {
-        Security.addProvider(new BouncyCastleProvider());
+        Provider provider = Security.getProvider("SUN");
+        Security.addProvider(provider);
 
         // Carrega o certificado do destinatário a partir do arquivo
         CertificateFactory certFactory = CertificateFactory.getInstance("X.509");
@@ -22,7 +29,7 @@ public class JWEProcessor {
         SecretKey secretKey = keyGenerator.generateKey();
 
         // Cifre a mensagem usando AES-GCM
-        String ciphertext = AESEncryption.encrypt(plaintext, secretKey);
+        String ciphertext = AESEncryptation.encrypt(plaintext, secretKey);
 
         // Cifre a chave simétrica usando a chave pública do destinatário
         Cipher cipher = Cipher.getInstance("RSA/ECB/OAEPWithSHA-256AndMGF1Padding");
@@ -38,7 +45,8 @@ public class JWEProcessor {
     }
 
     public static String unwrapAndDecrypt(String jwe, String recipientPrivateKeyFile) throws Exception {
-        Security.addProvider(new BouncyCastleProvider());
+        Provider provider = Security.getProvider("SUN");
+        Security.addProvider(provider);
 
         // Divida o JWE em partes
         String[] parts = jwe.split("\\.");
@@ -62,7 +70,7 @@ public class JWEProcessor {
         // Decifre a mensagem usando a chave simétrica
         SecretKey secretKey = (SecretKey) unwrappedKey;
         String ciphertext = parts[3];
-        String plaintext = AESEncryption.decrypt(ciphertext, secretKey);
+        String plaintext = AESEncryptation.decrypt(ciphertext, secretKey);
 
         return plaintext;
     }

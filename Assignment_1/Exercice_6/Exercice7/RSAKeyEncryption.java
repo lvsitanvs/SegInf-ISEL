@@ -1,4 +1,5 @@
 import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 import java.security.*;
@@ -22,7 +23,7 @@ public class RSAKeyEncryption {
 
     public static void main(String[] args) {
         try {
-            // Gere uma chave simétrica AES
+            // Generate a  symmetric AES key
             KeyGenerator keyGenerator = KeyGenerator.getInstance("AES");
             keyGenerator.init(256);
             SecretKey secretKey = keyGenerator.generateKey();

@@ -7,7 +7,7 @@ import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Enumeration;
 
-public class KeystoreAndCertificate {
+public class KeyStoreAndCertificate {
     public static PublicKey getPublicKeyFromCertificate(String certificateFile) throws Exception {
         CertificateFactory certificateFactory = CertificateFactory.getInstance("X.509");
         FileInputStream inputStream = new FileInputStream(certificateFile);

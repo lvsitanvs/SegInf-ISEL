@@ -77,7 +77,7 @@ class Blockchain {
     }
 }
 
-public class SimpleBlockchain {
+public class SimpleBlockChain {
     public static void main(String[] args) {
         if (args.length != 4) {
             System.out.println("Uso correto: addblock <origem> <destino> <valor> <filename>");
