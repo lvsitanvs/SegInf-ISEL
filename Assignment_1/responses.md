@@ -95,7 +95,7 @@ Grupo 03
 
 
 
-6. Blockchain
+6. execice6.Blockchain
 
     6.3. A alteração do valor da transação no bloco 10 afetaria o hash desse bloco, pois o hash é calculado com base nos dados da transação. Como cada bloco na blockchain contém o hash do bloco anterior, essa alteração também afetaria todos os blocos subsequentes na cadeia.
     

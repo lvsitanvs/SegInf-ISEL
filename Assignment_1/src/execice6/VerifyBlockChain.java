@@ -1,3 +1,5 @@
+package execice6;
+
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,7 +21,7 @@ class Block1 {
         this.hash = hash;
     }
 
-    public String calculateHash() {
+    public String calculateHashVerification() {
         String data = origin + "," + destiny + "," + value + "," + hash;
         try {
             MessageDigest digest = MessageDigest.getInstance("SHA-256");
@@ -36,7 +38,7 @@ class Block1 {
     }
 
     public boolean isValid(Block1 previousBlock) {
-        return hash.equals(calculateHash()) && hash.equals(previousBlock.hash);
+        return hash.equals(calculateHashVerification()) && hash.equals(previousBlock.hash);
     }
 
     @Override

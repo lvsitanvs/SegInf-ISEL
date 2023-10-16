@@ -1,4 +1,4 @@
-package Exercice7;
+package execice7;
 
 import java.security.Provider;
 import java.security.Security;

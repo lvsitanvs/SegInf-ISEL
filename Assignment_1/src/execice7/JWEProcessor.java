@@ -1,13 +1,10 @@
-//import org.bouncycastle.jce.provider.BouncyCastleProvider;
-
-import Exercice7.AESEncryptation;
+package execice7;
 
 import javax.crypto.Cipher;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import java.io.FileInputStream;
 import java.security.*;
-import java.security.cert.Certificate;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.Base64;
@@ -70,8 +67,7 @@ public class JWEProcessor {
         // Decifre a mensagem usando a chave simétrica
         SecretKey secretKey = (SecretKey) unwrappedKey;
         String ciphertext = parts[3];
-        String plaintext = AESEncryptation.decrypt(ciphertext, secretKey);
 
-        return plaintext;
+        return AESEncryptation.decrypt(ciphertext, secretKey);
     }
 }

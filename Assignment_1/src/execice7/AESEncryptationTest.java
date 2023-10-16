@@ -1,14 +1,12 @@
-package Exercice7;
+package execice7;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import javax.crypto.KeyGenerator;
 import javax.crypto.SecretKey;
 import java.security.NoSuchAlgorithmException;
-import java.security.NoSuchProviderException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import Exercice7.AESEncryptation;
 
 public class AESEncryptationTest {
     private SecretKey secretKey;
