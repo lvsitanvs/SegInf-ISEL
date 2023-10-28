@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="verifychain:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/verifychain_jar</output-path>
+    <root id="archive" name="verifychain.jar">
+      <element id="module-output" name="verifychain" />
+    </root>
+  </artifact>
+</component>

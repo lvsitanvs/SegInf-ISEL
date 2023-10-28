@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="addblock:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/addblock_jar</output-path>
+    <root id="archive" name="addblock.jar">
+      <element id="module-output" name="addblock" />
+    </root>
+  </artifact>
+</component>

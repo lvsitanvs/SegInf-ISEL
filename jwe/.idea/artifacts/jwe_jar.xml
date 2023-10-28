@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="jwe:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/jwe_jar</output-path>
+    <root id="archive" name="jwe.jar">
+      <element id="module-output" name="jwe" />
+    </root>
+  </artifact>
+</component>
