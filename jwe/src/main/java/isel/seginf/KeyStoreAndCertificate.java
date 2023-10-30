@@ -7,10 +7,7 @@ import java.security.PublicKey;
 import java.security.cert.*;
 import java.security.KeyFactory;
 import java.security.spec.RSAPublicKeySpec;
-import java.util.ArrayList;
-import java.util.Enumeration;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 public class KeyStoreAndCertificate {
     public static PublicKey getPublicKeyFromCertificate(String certificateFile, Boolean printInfo) throws Exception {
@@ -96,19 +93,21 @@ public class KeyStoreAndCertificate {
     private static Boolean verifyCertificate(String certificateFile) {
         ArrayList<X509Certificate> certList = new ArrayList<>();
         System.out.println(certificateFile);
-        String filename = certificateFile.split("/")[2];
+        List<String> filenamePathList = List.of(certificateFile.split("/"));
+        String certificatesPath = String.join("/", filenamePathList.subList(0, filenamePathList.size() - 2));
+        String filename = filenamePathList.get(filenamePathList.size() - 1);
         String numSerie = filename.split("_")[1];
         // Adicionar os certificados
         switch (numSerie) {
             case "1.cer":
                 certList.add(0, getCertificate(certificateFile));
-                certList.add(1, getCertificate("certificates-keys/intermediates/CA1-int.cer"));
-                certList.add(2, getCertificate("certificates-keys/trust-anchors/CA1.cer"));
+                certList.add(1, getCertificate(certificatesPath + "/intermediates/CA1-int.cer"));
+                certList.add(2, getCertificate(certificatesPath + "/trust-anchors/CA1.cer"));
                 break;
             case "2.cer":
                 certList.add(0, getCertificate(certificateFile));
-                certList.add(1, getCertificate("certificates-keys/intermediates/CA2-int.cer"));
-                certList.add(2, getCertificate("certificates-keys/trust-anchors/CA2.cer"));
+                certList.add(1, getCertificate(certificatesPath + "certificates-keys/intermediates/CA2-int.cer"));
+                certList.add(2, getCertificate(certificatesPath + "certificates-keys/trust-anchors/CA2.cer"));
                 break;
             default:
                 System.out.println("Invalid certificate");
