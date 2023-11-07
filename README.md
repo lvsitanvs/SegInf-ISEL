@@ -133,3 +133,45 @@ Approach, 2ª edição, 2019: Secções 21.1-5, 22.7
 - **RSA**
 - **Esquema Híbrido**
 
+## 4. Assinatura Digital e Certificados; JCA
+> Bibliografia <hr> 
+> - [04. Esquemas Assimétricos](https://2324moodle.isel.pt/mod/resource/view.php?id=145975)
+> - [05. JCA](https://2324moodle.isel.pt/mod/resource/view.php?id=146946)
+> - [06. Certificados](https://2324moodle.isel.pt/mod/resource/view.php?id=147411)
+
+- **Assinatura Digital**
+- **Introdução ao JCA**
+	- [Documentação Oracle](https://docs.oracle.com/en/java/javase/11/security/java-cryptography-architecture-jca-reference-guide.html)
+- **Ifraestrutura de chave pública**
+	- [Internet X.509 Public Key Infrastructure Certificate and Certificate Revocation List (CRL) Profile](https://www.rfc-editor.org/rfc/rfc5280)
+
+## 5. TLS
+> Bibliografia <hr> 
+> - [07. SSL-TLS](https://2324moodle.isel.pt/mod/resource/view.php?id=147727)
+> - Gollmann, Dieter, Computer Security, 3ª edição, 
+Wiley, 2011: Secções 16.5
+
+- **Apoio ao trabalho**
+	- [JWT Decoder, Verifier, Generator, Decryptor](https://dinochiesa.github.io/jwt/)
+	- [RFC 7519 - JSON Web Token](https://datatracker.ietf.org/doc/html/rfc7519)
+
+- **Introdução ao TLS**
+	- [RFC 8446 - The Transport Layer Security (TLS) Protocol Version 1.3](https://datatracker.ietf.org/doc/html/rfc8446)
+	- [Wireshark](https://www.wireshark.org)
+	- [Let's Encrypt](https://letsencrypt.org)
+- **Subprotocolos**
+	- Record Protocol
+	- Handshake Protocol
+- **HTTPS**
+	- [Fiddler](https://www.telerik.com/download/fiddler)
+- **SecureSockets com JCA**
+	- [Documentação Oracle](https://docs.oracle.com/en/java/javase/11/security/java-cryptography-architecture-jca-reference-guide.html)
+
+## 6. Autenticação
+> Bibliografia <hr> 
+> - [08. Autenticação](https://2324moodle.isel.pt/mod/resource/view.php?id=149500)
+
+- **Autenticação baseada em Passwords**
+	- [tests httpauth](http://test.greenbytes.de/tech/tc/httpauth/)
+- **Autenticação na Web??**
+
