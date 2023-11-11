@@ -170,8 +170,17 @@ Wiley, 2011: Secções 16.5
 ## 6. Autenticação
 > Bibliografia <hr> 
 > - [08. Autenticação](https://2324moodle.isel.pt/mod/resource/view.php?id=149500)
+> - [09. Autenticação em aplicações Web](https://2324moodle.isel.pt/mod/resource/view.php?id=149700)
+> - [10. Intro Open ID Connect](https://2324moodle.isel.pt/mod/resource/view.php?id=149779)
 
-- **Autenticação baseada em Passwords**
+- **Autenticação em HTTP**
 	- [tests httpauth](http://test.greenbytes.de/tech/tc/httpauth/)
-- **Autenticação na Web??**
+- **JSON Web Tokens (JWT)**
+	- [decode, verify and generate JWT](https://jwt.io/)
+- **OpenID Connect**
+	- [OpenID Connect Playground](https://openidconnect.net/)
+	- [Auth0](https://auth0.com/)
+	- [OpenID JS code example](https://github.com/isel-deetc-computersecurity/seginf-public/blob/main/OIDC/relying-party-demo.js)
+	- [OpenID JS code example 2](https://github.com/vitorinojp/oidc-webapp)
+
 
