@@ -1,0 +1,16 @@
+{
+  "name": "http-server-base",
+  "version": "1.0.0",
+  "description": "isel-leic-seginf-2",
+  "main": "https-server-base.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "expess": "^0.0.1-security",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0"
+  }
+}
