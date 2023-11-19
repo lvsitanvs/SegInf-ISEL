@@ -32,14 +32,14 @@ momento do registo do utilizador *u* (|| representa a concatenação de bits).
 	Justifique, qual o conjunto total de permissões que podem existir numa sessão com o utilizador *u<sub>4</sub>*.
 
 ## Part 2
-- 6 - Configure um servidor **HTTPS**, **sem** e **com** autenticação de cliente. Tenha por base o ficheiro do servidor no repositório github da disciplina (nodeJS-TLS\http-server-base.js) [maybe this one](../Examples-from-@seginf-public/HTTPS-server/https-server-base.js). Considere o certificado e chave privada do servidor ```www.secure-server.edu``` em anexo, o qual foi emitido pela ```CA1-int``` do primeiro trabalho.
+- 6 - Configure um servidor **HTTPS**, **sem** e **com** autenticação de cliente. Tenha por base o ficheiro do servidor no repositório github da disciplina [nodeJS-TLS\https-server-base.js](../Examples-from-@seginf-public/HTTPS-server/https-server-base.js). Considere o certificado e chave privada do servidor ```www.secure-server.edu``` em anexo, o qual foi emitido pela ```CA1-int``` do primeiro trabalho.
 
 	⇒ No documento de entrega descreva sucintamente as configurações realizadas.
  	- a) Usando um *browser*, ligue-se ao servidor **HTTPS** sem e com autenticação de cliente **Alice_2**.
 	- b) Usando a **JCA**, realize uma aplicação para se ligar ao servidor **HTTPS** sem autenticação de cliente.
 
 	Tenha em conta as seguintes notas:
-	-  Comece pelo cenário base: servidor **HTTPS** testado com cliente *browser* sem autenticação. Para executar o servidor tem de ter instalado o ambiente de execução ```node.js```. Após a configuração mínima na secção options do ficheiro ```http-server-base.js```, o servidor é colocado em execução com o comando:
+	-  Comece pelo cenário base: servidor **HTTPS** testado com cliente *browser* sem autenticação. Para executar o servidor tem de ter instalado o ambiente de execução ```node.js```. Após a configuração mínima na secção options do ficheiro ```https-server-base.js```, o servidor é colocado em execução com o comando:
 	```terminal
 	$ node http-server-base.js
 	```

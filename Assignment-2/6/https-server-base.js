@@ -12,7 +12,7 @@ const app = express();
 app.get("/", function (req, res) {
     console.log(
         req.socket.remoteAddress
-        //+ ' ' + req.socket.getPeerCertificate().subject.CN
+        + ' ' + req.socket.getPeerCertificate().subject.CN
         + ' ' + req.method
         + ' ' + req.url);
     res.send("<html><body>Secure Hello World with node.js</body></html>");
@@ -21,17 +21,17 @@ app.get("/", function (req, res) {
 
 // configure TLS handshake
 const options = {
-    key: fs.readFileSync('keys/secure-server-pfx.pem'),
-    cert: fs.readFileSync('keys/secure-server-cer.pem'),
-    //ca: fs.readFileSync('<server trustbase PEM (root CA)>'),
-    //ca: fs.readFileSync('keys/certificates-keys/trust-anchors/CA2.cer'),
-    //requestCert: true, 
-    //rejectUnauthorized: true
+    key: fs.readFileSync('keys/secure-server-key-17nov.pem'),
+    cert: fs.readFileSync('keys/secure-server-17nov.pem'),
+    ca: fs.readFileSync('keys/certificates-keys/trust-anchors/CA2.pem'),
+    requestCert: true, 
+    rejectUnauthorized: true
 };
 
 // Create HTTPS server
 https.createServer(options, app).listen(PORT, 
     function (req, res) {
         console.log("Server started at port " + PORT);
+        console.log("Access it here: https://localhost:4433")
     }
 );
