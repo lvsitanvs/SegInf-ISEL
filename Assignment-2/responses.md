@@ -75,8 +75,7 @@ Para os papeis de *(M)ember, (D)eveloper, (T)ester* e *(S)upervisor*, foi defeni
 - *UA = {(u<sub>1</sub>, M),(u<sub>2</sub>, T<sub>2</sub>),(u<sub>3</sub>, D<sub>2</sub>),(u<sub>4</sub>, S)}*
 - *P A = {(M, p1),(D, p2),(T, p3),(D<sub>2</sub>, p5),(T<sub>2</sub>, p4)}*
 
-Numa sessão utilizador *u<sub>4</sub>* , o conjunto total de permissões que podem existir são ```TODO``` uma vez que, ```TODO```
-
+Numa sessão utilizador *u<sub>4</sub>* , o conjunto total de permissões que podem existir são {p1, p2 e p3} uma vez que, *u<sub>4</sub>* é (S)upervisor e segunda as regras de RH, este herda de D ⪯ S, T ⪯ S e M ⪯ T/D.
 ## 6. Servidor HTTPS
 
 ### OpenSSL comands to transform the certificate keys
