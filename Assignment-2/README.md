@@ -50,6 +50,14 @@
   - As chaves e certificados no servidor **node.js** são configuradas usando o formato **PEM**. Para converter ficheiros **CER** (certificado) e **PFX** (chave privada) para **PEM** use a ferramenta de linha de comandos *OpenSSL*. Existem vários guias na Internet sobre o assunto, tendo todos por base a [documentação oficial](https://www.openssl.org/docs/manmaster/man1/). Um exemplo de um desses guias pode ser visto [aqui](
 https://www.sslshopper.com/article-most-common-openssl-commands.html). O ficheiro ```secure-server.pfx``` tem a chave privada do servidor e não está protegida por *password*.
 
+  - O certificado fornecido para configurar o servidor associa o nome www.secure-server.edu a uma
+chave pública. No entanto, o servidor estará a executar localmente, em localhost, ou seja, 127.0.0.1.
+Para o browser aceitar o certificado do servidor, o nome do domínio que consta no URL introduzido
+na barra de endereços, https://www.secure-server.edu:4433, tem de coincidir com o nome do
+certificado. Para que o endereço www.secure-server.edu seja resolvido para localhost, terá de
+fazer a configuração adequada no ficheiro hosts, cuja localização varia entre diferentes sistemas
+operativos: https://en.wikipedia.org/wiki/Hosts_(file)
+
 - 7 - Realize uma aplicação *web* para criar tarefas de um utilizador **Google** através da [*Google Tasks API*](https://developers.google.com/tasks/reference/rest) usando [milestones de projetos *GitHub*](https://docs.github.com/en/free-pro-team@latest/rest/reference/issues#milestones). É opcional, mas valorizado, o acesso a projetos **GitHub** privados.
 
   Requisitos da aplicação:

@@ -2,10 +2,12 @@ package isel.seginf;
 
 public class Main {
     public static void main(String[] args) {
-
+        String HOST = "www.secure-server.edu";
+        Integer PORT = 4433;
+        String CERTIFICATE_PATH = "src/main/resources/CA1.p12";
         System.out.println("Connecting to server!");
         try {
-            SSLClient.SSLClient("localhost", 4433);
+            SSLClient.SSLClient(CERTIFICATE_PATH, HOST, PORT);
         } catch (Exception e) {
             System.out.println("Error connecting to server!");
             e.printStackTrace();
