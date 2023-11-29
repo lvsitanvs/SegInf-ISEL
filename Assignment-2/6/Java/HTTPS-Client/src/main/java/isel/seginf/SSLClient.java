@@ -37,10 +37,10 @@ public class SSLClient {
 
     private static SSLSocketFactory configureSSLSocketFactory(String certificatePath) throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException, FileNotFoundException {
         // Load the server's certificate to KeyStore
-        KeyStore ks = KeyStore.getInstance("JKS");
+        KeyStore ks = KeyStore.getInstance(KeyStore.getDefaultType());
         CertificateFactory cf = null;
         try {
-            ks.load(null, "changeit".toCharArray());
+            ks.load(null, null);
         } catch (IOException | CertificateException e) {
             System.out.println(e.getMessage());
         }
@@ -70,8 +70,6 @@ public class SSLClient {
         sslContext.init(null, tmf.getTrustManagers(), null);
 
         // Use the SSLContext to create an SSLSocketFactory
-        SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
-
-        return sslSocketFactory;
+        return sslContext.getSocketFactory();
     }
 }
