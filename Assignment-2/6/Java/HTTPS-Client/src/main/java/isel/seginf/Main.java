@@ -4,7 +4,7 @@ public class Main {
     public static void main(String[] args) {
         String HOST = "www.secure-server.edu";
         Integer PORT = 4433;
-        String CERTIFICATE_PATH = "src/main/resources/CA1.p12";
+        String CERTIFICATE_PATH = "src/main/resources/ca.jks";
         System.out.println("Connecting to server!");
         try {
             SSLClient.SSLClient(CERTIFICATE_PATH, HOST, PORT);

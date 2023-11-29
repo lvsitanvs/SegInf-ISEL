@@ -8,6 +8,9 @@ import java.security.KeyManagementException;
 import java.security.KeyStore;
 import java.security.KeyStoreException;
 import java.security.NoSuchAlgorithmException;
+import java.security.cert.Certificate;
+import java.security.cert.CertificateException;
+import java.security.cert.CertificateFactory;
 
 public class SSLClient {
     public static void SSLClient(String certificatePath, String host, Integer port) throws IOException, KeyStoreException, NoSuchAlgorithmException, KeyManagementException {
@@ -33,33 +36,42 @@ public class SSLClient {
     }
 
     private static SSLSocketFactory configureSSLSocketFactory(String certificatePath) throws KeyStoreException, NoSuchAlgorithmException, KeyManagementException, FileNotFoundException {
-        // Load server's certificate to KeyStore
-        KeyStore ks = KeyStore.getInstance("PKCS12");
-        // tansforma com keytool -importcert -file CA1.cer -keystore CA1.p12 -storetype PKCS12
-        System.out.println(certificatePath);
-        FileInputStream certInputStream = new FileInputStream(certificatePath);
+        // Load the server's certificate to KeyStore
+        KeyStore ks = KeyStore.getInstance("JKS");
+        CertificateFactory cf = null;
         try {
-            ks.load(certInputStream, "changeit".toCharArray());
-            System.out.println("Certificate loaded!");
-            ks.setCertificateEntry("server", java.security.cert.CertificateFactory.getInstance("X.509").generateCertificate(certInputStream));
-            System.out.println("Certificate added to KeyStore!");
-        } catch (Exception e) {
-            System.out.println("Error loading certificate!");
+            ks.load(null, "changeit".toCharArray());
+        } catch (IOException | CertificateException e) {
             System.out.println(e.getMessage());
-            System.exit(1);
+        }
+
+        try {
+            cf = CertificateFactory.getInstance("X.509");
+        } catch (CertificateException e) {
+            e.getMessage();
+        }
+
+        try (FileInputStream certificateInputStream = new FileInputStream(certificatePath)) {
+            if (cf != null) {
+                Certificate cert = cf.generateCertificate(certificateInputStream);
+                ks.setCertificateEntry("ca", cert);
+            }
+            
+        } catch (IOException | CertificateException e) {
+            System.out.println(e.getMessage());
         }
 
         // Create a TrustManager that trusts the server's certificate
         TrustManagerFactory tmf = TrustManagerFactory.getInstance(TrustManagerFactory.getDefaultAlgorithm());
         tmf.init(ks);
-        System.out.println("TrustManagerFactory initialized!");
 
-        // Create an SSLContext that uses our TrustManager
-        SSLContext context = SSLContext.getInstance("TLS");
-        context.init(null, tmf.getTrustManagers(), null);
-        System.out.println("SSLContext initialized!");
+        // Create an SSLContext that uses the TrustManager
+        SSLContext sslContext = SSLContext.getInstance("TLS");
+        sslContext.init(null, tmf.getTrustManagers(), null);
 
-        // Return the SSL Socket Factory
-        return context.getSocketFactory();
+        // Use the SSLContext to create an SSLSocketFactory
+        SSLSocketFactory sslSocketFactory = sslContext.getSocketFactory();
+
+        return sslSocketFactory;
     }
 }
