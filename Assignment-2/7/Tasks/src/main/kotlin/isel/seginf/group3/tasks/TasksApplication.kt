@@ -1,4 +1,4 @@
-package isel.seginf.group3.Tasks
+package isel.seginf.group3.tasks
 
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
