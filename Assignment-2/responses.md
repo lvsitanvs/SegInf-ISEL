@@ -97,12 +97,38 @@ But the CA2.cer from the trust-anchors stil needs to be transformed to ```.pem``
 openssl x509 -inform des -in CA2.cer -out CA2.pem
 ```
 
-#### Node server
+#### Hosts file configuration
 
-To run the server:
+In linux, the hosts file is located in ```/etc/hosts```, to edit it run:
 
 ```terminal
-node https-server-base.js
+sudo nano /etc/hosts
+```
+
+Point www.secure-server.edu to 127.0.0.1
+
+```nano
+127.0.0.1   www.secure-server.edu
+127.0.1.1   localhost
+127.0.2.1   <computer-name>
+
+........
+```
+
+In Windows, the hosts file is located in ```c:\windows\system32\drivers\etc\hosts```. To edit it, run Notepad as administrator and open it.
+
+#### Node server
+
+To run the server that no requires Alice2 authentication:
+
+```terminal
+node https-server-base-no-auth.js
+```
+
+For the server that requires Alice2 authentication:
+
+```terminal
+node https-server-base-with-auth.js
 ```
 
 #### Browser configurations
@@ -120,6 +146,8 @@ node https-server-base.js
 - At last, trust the certificate to identifie sites
 
     ![trust certificate to identify sites](6/images/browser4.png)
+
+- Repeat the same process to add **CA1-int**
 
 - When visiting the server ```https://localhost:4433``` the result is:
     ![browser response](6/images/browser5.png)
@@ -150,6 +178,8 @@ showing that the server has accepted and validated the ```Alice_2``` certificate
 
 #### Javascript Code
 
+Server asking for authentication:
+
 ```javascript
 // Built-in HTTPS support
 const https = require("https");
@@ -176,7 +206,7 @@ app.get("/", function (req, res) {
 const options = {
     key: fs.readFileSync('keys/secure-server-key-17nov.pem'),
     cert: fs.readFileSync('keys/secure-server-17nov.pem'),
-    ca: fs.readFileSync('keys/certificates-keys/trust-anchors/CA2.pem'),
+    ca: fs.readFileSync('keys/certificates-keys/trust-anchors/CA1.pem'),
     requestCert: true, 
     rejectUnauthorized: true
 };
@@ -185,7 +215,46 @@ const options = {
 https.createServer(options, app).listen(PORT, 
     function (req, res) {
         console.log("Server started at port " + PORT);
-        console.log("Access it here: https://localhost:4433")
+        console.log("Access it here: https://www.secure-server.edu:4433")
+    }
+);
+
+```
+
+Server without asking authentication:
+
+```javascript
+// Built-in HTTPS support
+const https = require("https");
+// Handling GET request (npm install express)
+const express = require("express");
+// Load of files from the local file system
+var fs = require('fs'); 
+
+const PORT = 4433;
+const app = express();
+
+// Get request for resource /
+app.get("/", function (req, res) {
+    console.log(
+        req.socket.remoteAddress
+        + ' ' + req.method
+        + ' ' + req.url);
+    res.send("<html><body>Secure Hello World with node.js</body></html>");
+});
+
+
+// configure TLS handshake
+const options = {
+    key: fs.readFileSync('keys/secure-server-key-17nov.pem'),
+    cert: fs.readFileSync('keys/secure-server-17nov.pem')
+};
+
+// Create HTTPS server
+https.createServer(options, app).listen(PORT, 
+    function (req, res) {
+        console.log("Server started at port " + PORT);
+        console.log("Access it here: https://wwww.secure-server:4433")
     }
 );
 

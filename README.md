@@ -225,7 +225,17 @@ Wiley, 2011: Secções 16.5
   - [Documentation](https://oauth.net/2/)
   - [OAuth 2.0 Playground](https://www.oauth.com/playground/)
   - [Common OAuth implementation issues](https://salt.security/blog/oh-auth-abusing-oauth-to-take-over-millions-of-accounts)
+  - [Relying Party Demo - GitHub](https://salt.security/blog/oh-auth-abusing-oauth-to-take-over-millions-of-accounts)
 
 ### 8. Modelos e mecanismos para controlo de acessos
 
 > Bibliografia <hr>
+> - [Controlo de Acessos](https://2324moodle.isel.pt/mod/resource/view.php?id=150565)
+
+- Generalidades
+  - [Role-Based Access Control in Retrospect](https://ieeexplore.ieee.org/document/6133255)
+
+- Casbin
+  - [Casbin get-started](https://casbin.org/docs/get-started/)
+  - [Casbin editor](https://casbin.org/editor/)
+
