@@ -5,13 +5,8 @@ const FormData = require('form-data');// more info at:
 // https://github.com/auth0/node-jsonwebtoken
 // https://jwt.io/#libraries
 const jwt = require('jsonwebtoken');
-let crypto;
-try {
-  crypto = require('node:crypto');
-  console.log("crypto is available")
-} catch (err) {
-  console.error('crypto support is disabled!');
-}
+const crypto = require('crypto');
+const casbin = require('casbin');
 
 const port = 3001
 
@@ -27,6 +22,9 @@ const SECRET = {
     }
 }
 
+// CASBIN ----------------------------------------------------------------------------------
+const enforcer = casbin.newEnforcer('./casbin/model.conf', './casbin/policy.csv');
+
 // system variables where Client credentials are stored
 //const CLIENT_ID = process.env.CLIENT_ID
 const CLIENT_ID = SECRET.web.client_id
@@ -38,21 +36,21 @@ const CALLBACK = "callback"
 const app = express()
 
 app.use(cookieParser());
-
+let appState = crypto.randomBytes(20).toString('hex');
+/*app.use(session({
+  secret: crypto.randomBytes(20).toString('hex'),
+  state: appState
+}));*/
 
 
 app.get('/', (req, resp) => {
-    resp.send('<a href=/login>Use Google Account</a>')
+  resp.send('<a href=/login>Use Google Account</a>')
 })
 
 // More information at:
 //      https://developers.google.com/identity/protocols/OpenIDConnect
 
 app.get('/login', (req, resp) => {
-    const state = crypto.randomBytes(20).toString('hex');
-    console.log(state)
-    console.log(req.session)
-    req.session.state = state;
     resp.redirect(302,
         // authorization endpoint
         'https://accounts.google.com/o/oauth2/v2/auth?'
@@ -65,7 +63,7 @@ app.get('/login', (req, resp) => {
         
         // parameter state is used to check if the user-agent requesting login is the same making the request to the callback URL
         // more info at https://www.rfc-editor.org/rfc/rfc6749#section-10.12
-        + 'state=' + state + '&'
+        + 'state=' + appState + '&'
         
         // responde_type for "authorization code grant"
         + 'response_type=code&'
@@ -76,14 +74,13 @@ app.get('/login', (req, resp) => {
 })
 
 
-app.get('/'+CALLBACK, (req, resp) => {
+app.get('/'+CALLBACK, (req, res) => {
     //
     // TODO: check if 'state' is correct for this session
     //
     const { code, state } = req.query;
-    const storedState = req.session.state;
 
-    if (state !== storedState) {
+    if (state !== appState) {
         res.status(403).send('Invalid state parameter');
         return;
     }
@@ -117,10 +114,12 @@ app.get('/'+CALLBACK, (req, resp) => {
         var jwt_payload = jwt.decode(response.data.id_token)
         console.log(jwt_payload)
 
+        console.log(jwt_payload.email)
+
         // a simple cookie example
-        resp.cookie("DemoCookie", jwt_payload.email)
+        res.cookie("DemoCookie", jwt_payload.email)
         // HTML response with the code and access token received from the authorization server
-        resp.send(
+        res.send(
             '<div> callback with code = <code>' + req.query.code + '</code></div><br>' +
             '<div> client app received access code = <code>' + response.data.access_token + '</code></div><br>' +
             '<div> id_token = <code>' + response.data.id_token + '</code></div><br>' +
@@ -130,14 +129,46 @@ app.get('/'+CALLBACK, (req, resp) => {
       })
       .catch(function (error) {
         console.log(error)
-        resp.send()
+        res.send()
       });
 })
+
+app.get('/tasks', (req, res) => {
+  // pdp - decide if requests is allowed or not
+  const { email } = req.cookies;
+  const pdp = async function(s, o, a){
+    const enforcer = await casbin.newEnforcer('./casbin/model.conf', './casbin/policy.csv');
+    r = await enforcer.enforce(s, o, a);
+    return {res: r, sub: s, obj: o, act: a};
+  }
+
+  const execute = function(decision){
+    console.log(decision);
+    if(decision.res  !== true) {
+      res.send('deny access');
+    } else {
+      res.send('allow access');
+    } 
+  }
+
+  pdp(email, 'tasks', 'read').then((decision) => {
+    execute(decision);
+  });
+  pdp(email, 'tasks', 'write').then((decision) => {
+    execute(decision);
+  });
+
+  // TODO: Google Tasks API
+  // TODO: GitHub API to milestones
+
+})
+
 
 app.listen(port, (err) => {
     if (err) {
         return console.log('something bad happened', err)
     }
     console.log(`server is listening on ${port}`)
+    console.log(`http://www.secure-server.edu:${port}/`)
 })
 

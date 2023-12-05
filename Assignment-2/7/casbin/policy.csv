@@ -1,0 +1,7 @@
+p, free, task, read
+p, premium, task, read
+p, premium, task, write
+p, admin, task, read
+p, admin, task, write
+g, lvsitanvs.albicastrensis@gmail.com, premium
+g, mqueluz@gmail.com, free
