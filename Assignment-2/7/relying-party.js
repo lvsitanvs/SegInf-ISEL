@@ -124,7 +124,7 @@ app.get('/'+CALLBACK, (req, res) => {
             '<div> client app received access code = <code>' + response.data.access_token + '</code></div><br>' +
             '<div> id_token = <code>' + response.data.id_token + '</code></div><br>' +
             '<div> Hi <b>' + jwt_payload.email + '</b> </div><br>' +
-            'Go back to <a href="/">Home screen</a>'
+            '<div><a href="/tasks">Tasks</a></div>'            
         );
       })
       .catch(function (error) {
@@ -134,8 +134,10 @@ app.get('/'+CALLBACK, (req, res) => {
 })
 
 app.get('/tasks', (req, res) => {
+  console.log("TASKS DEBUG -------------------")
   // pdp - decide if requests is allowed or not
-  const { email } = req.cookies;
+  const email = req.cookies.DemoCookie;
+  console.log(email)
   const pdp = async function(s, o, a){
     const enforcer = await casbin.newEnforcer('./casbin/model.conf', './casbin/policy.csv');
     r = await enforcer.enforce(s, o, a);
@@ -147,7 +149,70 @@ app.get('/tasks', (req, res) => {
     if(decision.res  !== true) {
       res.send('deny access');
     } else {
-      res.send('allow access');
+      res.send(
+        '<p>allow access to ' + email + ' - premium acount</p>' + 
+        '<div>' +
+              '<form action="https://tasks.googleapis.com/tasks/v1/users/@me/lists" method="POST">' +
+                '<label for "createList">Create Task List </label>' +
+                '<input type="text" id="createList" name="createList" placeholder="list name">' + 
+                '<button onclick="createTaskList()">Create</button></br>' +
+              '</form></br>' + 
+              '<form>' +
+                '<label for "viewList">View Task List </label>' +
+                '<input type="text" id="viewList" name="viewList" placeholder="list name">' + 
+                '<button>View</button></br>' +
+              '</form></br>' + 
+              '<form>' +
+                '<label for "addTask">Add Task to List </label>' +
+                '<input type="text" id="viewList2" name="viewList2" placeholder="list name">' + 
+                '<input type="text" id="addTask" name="addTask" placeholder="task name">' + 
+                '<button>Add</button></br>' +
+              '</form></br>' + 
+              '<form>' +
+                '<label for "viewTask">View Task </label>' +
+                '<input type="text" id="viewList3" name="viewList3" placeholder="list name">' + 
+                '<input type="text" id="viewTask" name="viewTask" placeholder="task name">' + 
+                '<button>View</button></br>' +
+              '</form></br>' + 
+            '<div/>' +   
+            '</br>Go back to <a href="/">Home screen</a>' +
+            '<script>' + 
+            'let taskId = 0' +
+            'function createTaskList() {' +
+              'const title = document.getElementById("createList").value;' + 
+              'taskId = taskId + 1' +
+              'const etag = title.substring(0, 2)' +
+              'const now = new Date();' +
+              'const timestamp = now.toISOString();' +
+              'const link = "https://tasks.googleapis.com/tasks/v1/users/@me/lists/" + title' +
+              'const id_token = document.getElementById("id_toke").value.split(" ")[2]' +
+              'console.log(id_token)' + 
+              'const body = JSON.stringify({' +
+                '"kind": "tasks#taskList",' +
+                '"id": taskId,' +
+                '"etag": etag,' +
+                '"title": title,' +
+                '"updated": timestamp,' +
+                '"selfLink": link' +
+              '});' +
+              'const xhr = new XMLHttpRequest();' +
+              "xhr.open('POST', 'https://tasks.googleapis.com/tasks/v1/users/@me/lists');" +
+              "xhr.setRequestHeader('Content-Type', 'application/json');" +
+              "xhr.setRequestHeader('Authorization', 'Bearer ' + id_token);" +
+              'xhr.onload = function() {' +
+                'if (xhr.status === 200) {' +
+                  'console.log(xhr.responseText);' +
+                '} else {' +
+                  'console.error(xhr.statusText);' +
+                '}' +
+              '};' +
+              'xhr.onerror = function() {' +
+                'console.error(xhr.statusText);' +
+              '};' +
+              'xhr.send(body);' +
+              '}' +
+            '</scrip>'
+        );
     } 
   }
 
@@ -171,4 +236,43 @@ app.listen(port, (err) => {
     console.log(`server is listening on ${port}`)
     console.log(`http://www.secure-server.edu:${port}/`)
 })
+
+// GOOGLE API FUNCTIONS -------------------------------------------------------------
+/*let taskId = 0
+
+function createTaskList() {
+  const title = document.getElementById('createList').value;
+  taskId = taskId + 1
+  const etag = title.substring(0, 2)
+  const now = new Date();
+  const timestamp = now.toISOString();
+  const link = "https://tasks.googleapis.com/tasks/v1/users/@me/lists/" + title
+  const id_token = document.getElementById("id_toke").value.split(" ")[2]
+  console.log(id_token)
+  
+  const body = JSON.stringify({
+    "kind": "tasks#taskList",
+    "id": taskId,
+    "etag": etag,
+    "title": title,
+    "updated": timestamp,
+    "selfLink": link
+  });
+
+  const xhr = new XMLHttpRequest();
+  xhr.open('POST', 'https://tasks.googleapis.com/tasks/v1/users/@me/lists');
+  xhr.setRequestHeader('Content-Type', 'application/json');
+  xhr.setRequestHeader('Authorization', 'Bearer ' + id_token);
+  xhr.onload = function() {
+    if (xhr.status === 200) {
+      console.log(xhr.responseText);
+    } else {
+      console.error(xhr.statusText);
+    }
+  };
+  xhr.onerror = function() {
+    console.error(xhr.statusText);
+  };
+  xhr.send(body);
+}*/
 
