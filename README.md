@@ -238,4 +238,6 @@ Wiley, 2011: Secções 16.5
 - Casbin
   - [Casbin get-started](https://casbin.org/docs/get-started/)
   - [Casbin editor](https://casbin.org/editor/)
+  - [Gestão dinâmica de regras com Casbin](https://casbin.org/docs/rbac-api)
+
 
